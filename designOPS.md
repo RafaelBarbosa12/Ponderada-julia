@@ -785,6 +785,8 @@ Essas perguntas ajudam o grupo a tratar o DesignOps como uma prática que se aju
 
 [5] GitLab CI/CD Docs. [https://docs.gitlab.com/ee/ci/](https://docs.gitlab.com/ee/ci/)
 
+[6] Conventional Commits. *A specification for adding human and machine readable meaning to commit messages*. https://www.conventionalcommits.org/
+
 **Responsável:** Rodrigo Lee
 
 ### Referências da Seção 5
