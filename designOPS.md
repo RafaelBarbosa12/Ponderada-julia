@@ -32,6 +32,115 @@ Ambas as abordagens visam a quebra de silos, a colaboração multidisciplinar, a
 
 ---
 
+## 2. Como Trabalhamos Juntos — Pessoas, Papéis e Rituais
+
+### Contexto e objetivo
+
+O Jacto Drones Operating System v0.1 é desenvolvido por sete estudantes em sprints semanais, com firmware embarcado, plataforma de serviços e plataforma de dados/BI convergindo num dashboard operacional de métricas DORA (RNF002). Nessa escala, o gargalo do DesignOps está na coordenação entre duplas da Sprint 1 e na interlocução com Thamires (Ponto Focal Jacto), não na ferramenta. A seção aplica Organize, Collaborate e Humanize de Kaplan (2019) [1] à organização do time.
+
+### 2.1 Estrutura do time (componente Organize)
+
+A estrutura do time reflete a divisão real da Sprint 1 (Duplas A, B, C e Coringa), sem inventar papéis dedicados que sete pessoas não sustentam.
+
+| Papel funcional | Integrante | Responsabilidade no DesignOps | Artefato/área de propriedade |
+|---|---|---|---|
+| UX Lead — Pesquisa e Jornadas | Yasmin Minario | Mapear jornadas dos engenheiros usuários (firmware, controle, BI) e validar fluxos do dashboard | Personas, mapa de jornadas, mapa de interlocutores internos Jacto |
+| UX Lead — Interface e Design System | Ryan Gartlan | Curadoria de componentes, fidelidade visual nas telas do OS v0.1 | Biblioteca Figma, especificação de telas |
+| Dev Lead — tokens (acúmulo) | Ryan Gartlan | Definir contratos de naming W3C e versionamento de tokens via Tokens Studio | `tokens.json`, configuração Tokens Studio, Style Dictionary |
+| DevOps Engineer — pipeline visual | Larissa Temoteo | Esteira CI/CD, gates de regressão visual e acessibilidade, registry de artefatos | `.gitlab-ci.yml`, ambiente de preview, baseline Chromatic |
+| Frontend Developer | Rodrigo Lee | Implementar dashboard React + TypeScript + Tailwind consumindo tokens publicados | Componentes do dashboard operacional, telas de configuração de esteira |
+| Backend Developer | Davi Versa, Rafael Barbosa | APIs de manifesto de release (RNF003) e Problem Reports consumidas pelas telas | Endpoints e contratos consumidos pelo dashboard |
+| QA — regressão visual | Tainá Cortez | Revisão cruzada entre frentes, baseline visual e ata de critique | Relatórios de regressão, ata de Design Critique |
+| Product Owner / Scrum Master | [A DEFINIR — rotativo por sprint] | Priorização do backlog, facilitação das cerimônias | Backlog GitLab, agenda da sprint |
+| Ponto Focal Externo (stakeholder externo Jacto) | Thamires Silva (backup: Camille Amaral) | Aderência ao negócio, interlocução com líderes técnicos Vinícius e Roosevelt | Validação de telas-chave, sign-off de release |
+
+A dupla UX (Yasmin + Ryan) é mantida porque pesquisa de jornadas e construção de design system têm cadências distintas — a primeira nas Sprints 2–3, a segunda nas 4–5. Larissa permanece em DevOps por continuidade da Dupla B (Esteira) da Sprint 1, evitando re-onboarding no pipeline `.gitlab-ci.yml`. Ryan acumula tokens com UX de interface porque a fronteira entre componente Figma e token W3C é estreita demais para dois ownerships. Considerou-se um Design Producer dedicado [1, 2], descartado porque sete integrantes em sprint semanal são coerentes com DesignOps como Mentalidade, não como função especializada.
+
+### 2.2 Matriz RACI para decisões de design
+
+A matriz RACI [3] explicita quem decide o quê em cada artefato que cruza a fronteira design–código.
+
+| Decisão | UX Lead | Dev Lead | DevOps | PO/Scrum | Ponto Focal Jacto |
+|---|---|---|---|---|---|
+| Criação de protótipo de tela (dashboard, Problem Report) | R, A | C | I | C | I |
+| Aprovação visual antes do merge | R | A | I | C | C |
+| Publicação de novos tokens no registry | C | R, A | C | I | I |
+| Deploy do dashboard em staging | I | C | R, A | C | I |
+| Mudança breaking no design system | C | C | C | R, A | C |
+| Aderência do dashboard ao negócio Jacto | C | I | I | R | A |
+
+Legenda: R = Responsible, A = Accountable, C = Consulted, I = Informed.
+
+Dois pontos não são óbvios. UX é Consulted em tokens mas Accountable em UI porque tokens são contrato técnico (naming W3C, build via Style Dictionary), enquanto a UI é o entregável visível ao engenheiro Jacto que opera o dashboard. Thamires é Accountable na aderência ao negócio porque representa a decisão final sobre valor operacional para pulverização agrícola — julgamento que nem o time, nem a Profª Julia podem substituir.
+
+### 2.3 Rituais e cadências (componente Collaborate)
+
+Os rituais formalizam o que a Sprint 1 já praticava: daily, sync pós-almoço e revisão cruzada entre duplas.
+
+| Ritual | Objetivo | Frequência | Participantes | Output |
+|---|---|---|---|---|
+| Daily Stand-up | Sincronizar bloqueios e progresso entre as três frentes | Diária, 15 min | Os 7 integrantes | Atualização das colunas no quadro GitLab |
+| Design Sync | Alinhar decisões visuais entre duplas (herdado do sync pós-almoço da Sprint 1) | Diária, 20 min após o almoço | Yasmin, Ryan, Rodrigo, Larissa | Comentário de decisão na issue correspondente |
+| Handover Design→Dev | Transferir tela validada para implementação | A cada nova tela do dashboard | UX Lead + Frontend Dev + DevOps | Issue com critérios de aceite e link Figma |
+| Design Critique | Revisão coletiva de fidelidade e UX | Quinzenal, 45 min | Time + Thamires (Jacto) quando agendado; Vinícius e Roosevelt em releases-chave | Ata curta no GitLab + ações no backlog |
+| Retrospectiva de DesignOps | Avaliar atritos entre design, dev e esteira | Fim de sprint, 30 min | Os 7 integrantes | Ações verificáveis para a próxima sprint |
+
+O Critique é quinzenal, não semanal, porque uma sprint de sete dias não acumula volume de decisões visuais que justifique crítica coletiva semanal — concentrá-las a cada duas sprints permite que Thamires e os líderes Vinícius e Roosevelt revisem um conjunto coerente de telas. A Daily e o Design Sync mantêm a cadência já validada na Sprint 1, ancorada nas recomendações do Scrum Guide [4] sobre eventos timeboxados curtos.
+
+### 2.4 Canais de comunicação
+
+Cada canal tem propósito definido para evitar que decisão importante se perca no fluxo síncrono do WhatsApp.
+
+- **WhatsApp (canal principal):** alinhamentos rápidos, dúvidas síncronas, bloqueios urgentes e coordenação de presença em sync. Não é fonte de verdade — qualquer decisão que sair daqui precisa virar issue ou comentário no GitLab.
+- **Issues e Merge Requests no GitLab:** decisões persistidas, justificativas arquiteturais, registro auditável de aprovações. É a fonte de verdade do projeto, ancorada em labels (`design-token`, `regressao-visual`, `handover`) que tornam buscas previsíveis.
+- **Comentários no Figma:** discussões sobre fidelidade visual, comportamento de componente e variantes, ancoradas ao próprio artefato — útil para que Yasmin e Ryan resolvam dúvidas locais sem fragmentar conversas em outro canal.
+- **Sync síncrono (presencial ou videochamada):** decisões com trade-off complexo, conflito entre duplas e validação com a Jacto envolvendo Thamires, Vinícius ou Roosevelt. Toda sync gera ata curta no GitLab, com decisão e responsável.
+
+A regra: decisão importante não tomada por escrito é decisão não tomada. Toda escolha de impacto arquitetural ou visual termina em Architecture Decision Record (ADR) no GitLab [5].
+
+### 2.5 Humanize — onboarding e circulação de conhecimento
+
+O componente Humanize [1] é onde times pequenos falham primeiro: conhecimento crítico se concentra em uma única pessoa e o pipeline trava quando essa pessoa fica indisponível. Esta subseção endereça onboarding, distribuição de conhecimento e comunidade de prática.
+
+**1. Onboarding de novo integrante (duas primeiras semanas).**
+
+- [ ] Acesso a GitLab, Figma, registry de tokens, ambiente de preview e grupo de WhatsApp concedidos na primeira sessão.
+- [ ] Leitura obrigatória do `DESIGN_OPS.md`, do `README` do repositório e das três últimas issues fechadas das Duplas A, B e C, para entender o estado atual da Esteira, da Arquitetura ISO 10746 e dos Requisitos SCM.
+- [ ] Sessão pareada com um integrante da dupla de destino em uma daily completa e em um sync pós-almoço antes de assumir issue própria.
+- [ ] Walkthrough guiado do `.gitlab-ci.yml` com Larissa, cobrindo gates de acessibilidade, registry de tokens e ambiente de Storybook.
+- [ ] Primeira contribuição supervisionada: micro-tarefa em token ou story de Storybook, com revisão obrigatória de Ryan e de mais um par da dupla destino.
+- [ ] Apresentação relâmpago na comunidade de prática até o fim da segunda semana, fixando o que foi aprendido.
+
+**2. Distribuição de conhecimento de design entre devs.**
+
+O risco maior é Ryan virar single point of failure por acumular UX de interface e ownership de tokens. Três mecanismos mitigam: (a) pair programming obrigatório em mudanças de UI que toquem dashboard, telas de esteira ou diagnósticos de Problem Report, com Ryan pareando com Rodrigo e Yasmin; (b) code review com dois aprovadores em toda MR que altere `tokens/` ou `components/`, com Larissa cobrindo pipeline e Tainá regressão visual; (c) Architecture Decision Records [5] para naming de token, convertendo memória individual em artefato versionado.
+
+**3. Comunidade de prática interna.**
+
+A comunidade segue formato relâmpago semanal de 20 minutos: um integrante apresenta um aprendizado de UX, frontend ou DesignOps aos outros seis. Em time de sete, cada pessoa apresenta a cada sete a oito semanas — recorrência suficiente sem competir com o backlog. O formato curto e regular segue Wenger (1998) [6] sobre comunidade de prática como aprendizado situado e contínuo.
+
+### Decisões de trade-off
+
+Adotou-se DesignOps como Mentalidade em vez de Design Producer dedicado porque sete integrantes em sprints semanais não sustentam função especializada [1, 2]. Adotou-se Critique quinzenal em vez de semanal porque a sprint de sete dias não comporta crítica coletiva com volume útil [4]. Adotou-se acúmulo de Ryan (UX + tokens) com pair programming e duplo aprovador em vez de funções separadas porque a fronteira entre Figma e token W3C é estreita demais para dois ownerships paralelos.
+
+### Referências da Seção 2
+
+[1] Kaplan, K. (2019). *DesignOps 101*. Nielsen Norman Group. https://www.nngroup.com/articles/design-operations-101/
+
+[2] Malouf, D. (2017). *What is Design Operations and why should you care?*. Designer Hangout. https://medium.com/designer-hangout/what-is-design-operations-and-why-should-you-care-b72f02b47761
+
+[3] Project Management Institute (2021). *A Guide to the Project Management Body of Knowledge (PMBOK Guide)*, 7ª ed. PMI. https://www.pmi.org/pmbok-guide-standards
+
+[4] Schwaber, K., & Sutherland, J. (2020). *The Scrum Guide*. https://scrumguides.org/scrum-guide.html
+
+[5] Atlassian. *Architecture Decision Records*. https://www.atlassian.com/blog/software-teams/architecture-decision-records
+
+[6] Wenger, E. (1998). *Communities of Practice: Learning, Meaning, and Identity*. Cambridge University Press.
+
+**Responsável:** Larissa Temoteo
+
+---
+
 ## 3. Como o Trabalho é Feito (Processos e Ferramentas)
 
 ### Contexto e objetivo
@@ -130,6 +239,7 @@ Esse controle garante aderência à ISO/IEC 25010 no aspecto de **manutenibilida
 * **Centralização vs Flexibilidade:** optou-se por centralização no GitLab, sacrificando flexibilidade individual em favor de consistência sistêmica.
 * **Automação vs Simplicidade:** adoção de regressão visual automatizada aumenta complexidade inicial, mas reduz drasticamente erros em produção.
 * **Ferramentas especializadas vs generalistas:** priorizou-se ferramentas especializadas (Tokens Studio, Chromatic) para garantir qualidade técnica.
+
 ---
 
 ## 5. Integração com Esteira CI/CD
