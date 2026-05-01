@@ -262,13 +262,6 @@ flowchart LR
 
 * **Quality Gates Restritivos vs. Velocidade:** Consideramos versão "leve" do pipeline sem gate de acessibilidade ou regressão visual para iterar mais rápido. Descartamos porque a Jacto opera crítico em campo — segurança e acessibilidade não são negociáveis. Gastar 5 minutos extra em testes evita horas de retrabalho.
 
-### Referências da Seção 1
-[1] Kaplan, K. (Nielsen Norman Group). *DesignOps 101*.
-[2] Atlassian. *O que é DevOps?*. URL: https://www.atlassian.com/br/devops
-[3] Gaea. *Conheça a incrível história do DevOps*. URL: https://gaea.com.br/conheca-a-incrivel-historia-do-devops/
-
-**Responsável:** Davi Versan
-
 ---
 
 ## 5. Integração com Esteira CI/CD
@@ -531,6 +524,148 @@ flowchart LR
 
 * **Versionamento Centralizado vs. Descentralizado:** Poderíamos deixar cada app escolher versão de tokens independentemente. Proposta: versão única, publicada centralmente. Garante consistência, mas requer coordenação. Alternativa: multiple versions com suporte gradual a breaking changes.
 
+---
+
+## 7. Governança, Riscos e Evolução do DesignOps
+
+### Contexto e objetivo
+
+No projeto da Jacto Drones, o DesignOps precisa garantir que as decisões de interface e experiência do usuário não fiquem soltas entre Figma, issues, código e pipeline. Como o projeto roda em cima de uma esteira de CI/CD que organiza backlog, desenvolvimento, testes e releases, a governança do DesignOps existe para manter o fluxo de design rastreável e fácil de revisar.
+
+Essa seção define como o grupo vai tratar riscos operacionais, exceções ao Design System, onboarding de novos membros e melhoria contínua do processo. A ideia é encarar o DesignOps como a forma de organizar pessoas, processos e ferramentas para manter consistência conforme o projeto cresce.
+
+---
+
+### 7.1 Mapa de riscos operacionais
+
+Antes de definir processos, o time mapeia os riscos que podem gerar retrabalho, desalinhamento entre design e código ou quebra da experiência do usuário ao longo da esteira de CI/CD.
+
+| Risco | Impacto no projeto | Mitigação proposta | Evidência esperada |
+|---|---|---|---|
+| **Perda de conhecimento quando alguém sai ou troca de função** | Decisões de interface ficam concentradas em uma pessoa e o time perde contexto. | Documentar componentes, decisões e critérios de uso no Storybook, GitLab Issues e Merge Requests. | Issues com histórico de decisão, Storybook atualizado e handover registrado. |
+| **Design System desatualizado** | O código passa a usar componentes diferentes do protótipo, gerando inconsistência visual. | Revisão quinzenal dos componentes e tokens utilizados; itens obsoletos entram em lista de depreciação. | Lista de componentes ativos, depreciados e removidos. |
+| **Token alterado sem validação técnica** | Mudança visual pode quebrar contraste, espaçamento ou layout no frontend. | Gate no CI para validar tokens, contraste e build do Storybook antes do merge. | Pipeline bloqueando MR com token inválido ou build quebrado. |
+| **Exceções viram padrão informal** | Telas começam a fugir do Design System sem justificativa. | Toda exceção deve ser registrada em issue com motivo, responsável e prazo de revisão. | Issue com label `design-exception` e decisão documentada. |
+| **Regressão visual após merge** | Uma alteração aprovada quebra layout em outra parte do sistema. | Testes de regressão visual no pipeline, comparando o build atual com o baseline aprovado. | Relatório de regressão visual anexado ao MR. |
+| **Overhead de processo** | O time perde tempo mantendo rituais ou documentos que não ajudam a entrega. | Revisar mensalmente o processo e remover etapas que não geram evidência útil. | Ata curta da retrospectiva operacional com ações de melhoria. |
+
+---
+
+### 7.2 Política de exceções ao Design System
+
+O Design System é o caminho padrão para o desenvolvimento de interfaces, mas não pode virar uma camisa de força que impeça experimentos. Em alguns casos, o time pode criar uma exceção temporária, desde que ela seja documentada e revisada.
+
+Exceções são permitidas nos seguintes casos:
+
+1. **Experimento de interface:** quando o grupo precisa testar uma alternativa de UX antes de transformar aquilo em componente oficial.
+2. **Necessidade técnica específica:** quando o componente existente não atende a uma restrição de implementação.
+3. **Prazo de sprint:** quando a solução ideal exigiria uma refatoração maior do que o tempo disponível.
+4. **Validação com parceiro ou orientador:** quando ainda não há certeza se aquele fluxo fará parte da solução final.
+
+Toda exceção deve seguir este formato mínimo na issue:
+
+| Campo | Descrição |
+|---|---|
+| **Tela/fluxo afetado** | Informar qual tela, fluxo ou componente foi impactado. |
+| **Motivo da exceção** | Explicar por que o Design System não foi seguido neste caso. |
+| **Componente/token impactado** | Indicar se a exceção envolve componente, token, layout ou comportamento. |
+| **Risco gerado** | Descrever o possível impacto da exceção no produto. |
+| **Prazo para revisão** | Definir quando a exceção será revisada. |
+| **Responsável** | Nome da pessoa responsável por acompanhar a exceção. |
+| **Decisão** | Manter, refatorar ou remover. |
+
+A exceção não pode ser tratada como solução definitiva. Ao final da sprint, o time deve decidir se ela será incorporada ao Design System, refatorada para usar componentes existentes ou removida.
+
+**Decisão de trade-off:** consideramos bloquear qualquer tela que não use o Design System, mas descartamos essa abordagem porque o projeto acadêmico exige experimentação rápida. A política escolhida permite exceções, mas exige rastreabilidade e prazo de revisão.
+
+---
+
+### 7.3 Onboarding de novos membros
+
+Como o DesignOps depende de alinhamento entre design, desenvolvimento e CI/CD, qualquer novo membro do grupo precisa entender rapidamente como as decisões de interface entram na esteira. O onboarding é feito por checklist para evitar que o conhecimento fique informal.
+
+Checklist de onboarding:
+
+- [ ] Ler o `DESIGN_OPS.md` e entender a política de tokens e componentes.
+- [ ] Acessar Figma, repositório GitLab e Storybook do projeto.
+- [ ] Entender a estrutura de issues, labels e fluxo de Merge Request.
+- [ ] Rodar o projeto localmente.
+- [ ] Revisar uma issue de interface já concluída e acompanhar um handover ou design sync.
+- [ ] Fazer uma pequena alteração documentada em componente ou tela.
+
+O objetivo não é criar burocracia, mas reduzir dependência de explicações individuais e acelerar a integração ao fluxo.
+
+---
+
+### 7.4 Ciclo de melhoria contínua
+
+A governança do DesignOps é revisada a cada sprint em uma retrospectiva operacional curta, focada apenas em atritos entre design, desenvolvimento e entrega contínua — sem substituir a retrospectiva geral do projeto.
+
+Perguntas orientadoras:
+
+1. Alguma decisão de design chegou tarde para o desenvolvimento?
+2. Algum componente foi recriado sem necessidade ou algum token quebrou o build?
+3. Alguma tela ficou diferente do protótipo aprovado?
+4. Alguma exceção precisa virar componente oficial?
+
+A partir dessas respostas, o time registra ações pequenas e verificáveis:
+
+| Problema observado | Ação de melhoria | Responsável | Prazo |
+|---|---|---|---|
+| Muitos ajustes visuais no fim da sprint | Antecipar handover para antes do início do desenvolvimento. | UX Lead + Dev Lead | Próxima sprint |
+| Token sem padrão de nome | Criar convenção no `DESIGN_OPS.md`. | UX Lead | Próxima revisão |
+| Componente duplicado | Consolidar no Storybook e depreciar o antigo. | Dev Lead | Próxima sprint |
+| Falha visual não detectada | Adicionar teste de regressão visual no pipeline. | DevOps Engineer | Próximo merge relevante |
+
+Essa lógica trata o DesignOps como prática contínua, não como função isolada.
+
+---
+
+### 7.5 Critérios para evolução do DesignOps
+
+A evolução do DesignOps no projeto acontece em duas frentes: uma mudança de mentalidade do time e uma revisão contínua das práticas que já estão no ar.
+
+**De Role para Mindset.** Segundo Kaplan (NN/g), o DesignOps pode existir como *role* — um papel concentrado em uma pessoa responsável por rituais, tokens e governança — ou como *mindset* — uma forma de pensar incorporada por todo o time. No início do projeto, é natural que a responsabilidade fique concentrada no UX Lead e no Dev Lead de tokens. Conforme o grupo amadurece, a ideia é que essa responsabilidade vá migrando para um *mindset* compartilhado entre design, desenvolvimento e CI/CD, em que qualquer pessoa do grupo passa a defender consistência, acessibilidade e rastreabilidade nas próprias entregas. Essa mudança é um sinal de maturidade que o time busca ao longo das sprints.
+
+**Avaliação das práticas.** Para decidir o que manter, automatizar ou abandonar dentro da operação, usamos três critérios:
+
+| Critério | Pergunta de avaliação | Possível evolução |
+|---|---|---|
+| **Frequência de uso** | Este componente, token ou ritual é usado em várias entregas? | Padronizar e documentar. |
+| **Custo de manutenção** | A prática está gerando retrabalho ou confusão? | Simplificar, automatizar ou remover. |
+| **Impacto na entrega** | Isso melhora qualidade, velocidade ou rastreabilidade? | Manter e medir. |
+
+Exemplos: publicar uma biblioteca formal no Storybook quando muitos componentes forem reutilizados; aplicar versionamento semântico quando tokens passarem a mudar com frequência; revisar se o Design System está incompleto quando exceções crescerem; tornar o teste visual obrigatório no pipeline se regressões aparecerem em vários MRs.
+
+Essa evolução respeita o princípio de manter simplicidade no projeto acadêmico, evitando processos que o time não consiga cumprir.
+
+---
+
+### 7.6 Open questions
+
+Como o projeto ainda está em fase de construção, algumas hipóteses precisam ser validadas durante as próximas sprints:
+
+1. O nível de documentação proposto é suficiente para reduzir dúvidas no handover?
+2. O time conseguirá manter Storybook e Figma sincronizados sem gerar excesso de trabalho?
+3. Os testes de regressão visual serão viáveis dentro do tempo da sprint?
+4. A política de exceções será usada corretamente ou virará uma forma de contornar o Design System?
+5. As métricas de DesignOps realmente ajudarão a melhorar a entrega ou precisarão ser simplificadas?
+
+Essas perguntas ajudam o grupo a tratar o DesignOps como uma prática que se ajusta com o tempo. A ideia não é acertar todas as regras desde o início, mas construir um processo que aprende com o uso.
+
+---
+
+### Decisões de trade-off
+
+- **Escolhemos governança leve em vez de governança rígida**, porque o projeto tem prazo acadêmico e equipe reduzida. Regras demais poderiam atrasar a entrega.
+- **Escolhemos exceções documentadas em vez de bloqueio total**, porque algumas telas podem precisar de experimentação antes de virar padrão.
+- **Escolhemos responsabilidade distribuída em vez de uma pessoa única de DesignOps**, porque o briefing do grupo divide a entrega entre sete pessoas e exige colaboração entre design, desenvolvimento e CI/CD.
+- **Escolhemos evolução por sprint em vez de auditorias longas**, porque ciclos curtos combinam melhor com a esteira de CI/CD e com o ritmo do projeto.
+
+---
+
+
+
 ### Referências da Seção 1
 [1] Kaplan, K. (Nielsen Norman Group). *DesignOps 101*.
 [2] Atlassian. *O que é DevOps?*. URL: https://www.atlassian.com/br/devops
@@ -553,3 +688,13 @@ flowchart LR
 [6] W3C Design Tokens Community Group. *Design Tokens Format Module*. https://tr.designtokens.org/format/
 
 **Responsável:** Rafael Barbosa
+
+
+### Referências da Seção 7
+
+- [1] Kaplan, K. (2019). *DesignOps 101*. Nielsen Norman Group. https://www.nngroup.com/articles/design-operations-101/
+- [2] Nielsen Norman Group. (2021). *DesignOps Study Guide*. https://www.nngroup.com/articles/design-ops-study-guide/
+- [3] Malouf, D. (2017). *What is Design Operations and why should you care?*. Designer Hangout. https://medium.com/designer-hangout/what-is-design-operations-and-why-should-you-care-b72f02b47761
+- [4] Atlassian. *Design System Template*. https://www.atlassian.com/software/confluence/templates/design-system
+
+**Responsável:** Tainá Cortez
