@@ -1,20 +1,34 @@
+# Plano de DesignOps — Jacto Drones Operating System 
+
+## Sumário
+
+1. [Introdução, Objetivo e Filosofia DesignOps](#1-introdução-objetivo-e-filosofia-designops)
+2. [Como Trabalhamos Juntos — Pessoas, Papéis e Rituais](#2-como-trabalhamos-juntos--pessoas-papéis-e-rituais)
+3. [Como o Trabalho é Feito (Processos e Ferramentas)](#3-como-o-trabalho-é-feito-processos-e-ferramentas)
+4. [Design System, Tokens e Fluxo Design-to-Code](#4-design-system-tokens-e-fluxo-design-to-code)
+5. [Integração com Esteira CI/CD](#5-integração-com-esteira-cicd)
+6. [Mensuração de Impacto (REACH + DoD)](#6-mensuração-de-impacto-reach--dod)
+7. [Governança, Riscos e Evolução do DesignOps](#7-governança-riscos-e-evolução-do-designops)
+
+---
+
 ## 1. Introdução, Objetivo e Filosofia DesignOps
 
 ### Contexto e objetivo
 No contexto da construção do nosso módulo de CI/CD para o parceira do projeto (Jacto Drones), a entrega contínua de valor exige que a interface e a experiência do usuário (UX) fluam sem atritos pela nossa esteira de automação. O objetivo desta seção é fundamentar a arquitetura da nossa infraestrutura operacional, adotando a premissa fundamental de que a prática de DesignOps deve ser encarada e operada como o "DevOps do Design".
 
-### 1.1. A Filosofia: DesignOps como o DevOps do Design
+### 1.1 A Filosofia: DesignOps como o DevOps do Design
 Historicamente, o DevOps emergiu (com destaque a partir da palestra de Patrick Debois na Agile 2008) para solucionar gargalos de eficiência e conflitos operacionais entre as áreas de desenvolvimento e operações de TI. Trata-se de uma abordagem cultural e técnica que melhora a colaboração, automação e produtividade rumo à integração e entrega contínuas. 
 
-De maneira análoga, o DesignOps é a prática de otimizar processos, infraestrutura e ferramentas que dão suporte ao trabalho de design. Sua filosofia baseia-se na orquestração e otimização de pessoas e fluxos de trabalho para amplificar o impacto e o valor do design em escala. No fluxo de entrega contínua, o DesignOps atua para que as definições de componentes e protótipos sejam validadas e transpostas para código de maneira tão automatizada quanto as próprias builds de software.
+De maneira análoga, o DesignOps é a prática de otimizar processos, infraestrutura e ferramentas que dão suporte ao trabalho de design [2]. Sua filosofia baseia-se na orquestração e otimização de pessoas e fluxos de trabalho para amplificar o impacto e o valor do design em escala. No fluxo de entrega contínua, o DesignOps atua para que as definições de componentes e protótipos sejam validadas e transpostas para código de maneira tão automatizada quanto as próprias builds de software, endereçando o "caos ferramental" que Malouf (2017) aponta como gargalo operacional do design [2].
 
-### 1.2. Os Três Pilares Operacionais
+### 1.2 Os Três Pilares Operacionais
 Para estruturar as operações em nosso time, baseamos nossa governança nos três pilares estabelecidos pelo Nielsen Norman Group (NN/g):
 * **Como trabalhamos juntos (*How we work together*):** Foco em Organizar (estrutura e papéis), Colaborar (rituais e ambientes) e Humanizar (desenvolvimento e embarque).
 * **Como realizamos o trabalho (*How we get work done*):** Esforço para Padronizar processos, Harmonizar o sistema (Design System) e Priorizar o fluxo de trabalho de forma equilibrada.
 * **Como nosso trabalho cria impacto (*How our work creates impact*):** Estratégias para Medir o desempenho, Socializar o sucesso (recompensas) e Possibilitar o avanço técnico (guias e treinamentos).
 
-### 1.3. Paralelo: DevOps ↔ DesignOps
+### 1.3 Paralelo: DevOps ↔ DesignOps
 Para que a esteira CI/CD seja bem-sucedida, estabelecemos o seguinte pareamento funcional entre engenharia e design no projeto:
 
 | Dimensão | DevOps | DesignOps |
@@ -29,6 +43,15 @@ Ambas as abordagens visam a quebra de silos, a colaboração multidisciplinar, a
 ### Decisões de trade-off
 * **Cultura Estrutural vs. Adoção Puramente Ferramental:** No planejamento do nosso modelo de DesignOps, consideramos inicialmente a adoção exclusiva de ferramentas de versionamento visual. Descartamos essa via técnica isolada pois a história inicial do DevOps demonstrou que focar unicamente em agilidade de infraestrutura oferece uma "visão parcial" que não resolve conflitos reais entre equipes. Optamos por um *rollout* híbrido, onde a mudança de processos e rituais antecede a configuração dos *pipelines* técnicos.
 * **Padronização Total vs. Autonomia:** Consideramos aplicar políticas rígidas para todos os componentes criados. Como *trade-off*, relaxamos essa regra na fase de ideação (Discovery) para não reduzir a velocidade criativa. O rigor da padronização (linting, revisão) só ocorre ao tentar inserir componentes na biblioteca global (Delivery).
+
+### Referências da Seção 1
+
+- [1] Kaplan, K. (2019). *DesignOps 101*. Nielsen Norman Group. https://www.nngroup.com/articles/design-operations-101/
+- [2] Malouf, D. (2017). *What is design operations and why should you care?*. Designer Hangout. https://medium.com/designer-hangout/what-is-design-operations-and-why-should-you-care-b72f02b47761
+- [3] Atlassian. *O que é DevOps?*. https://www.atlassian.com/br/devops
+- [4] Gaea. *Conheça a incrível história do DevOps*. https://gaea.com.br/conheca-a-incrivel-historia-do-devops/
+
+**Responsável:** Davi Versan
 
 ---
 
@@ -46,15 +69,15 @@ A estrutura do time reflete a divisão real da Sprint 1 (Duplas A, B, C e Coring
 |---|---|---|---|
 | UX Lead — Pesquisa e Jornadas | Yasmin Minario | Mapear jornadas dos engenheiros usuários (firmware, controle, BI) e validar fluxos do dashboard | Personas, mapa de jornadas, mapa de interlocutores internos Jacto |
 | UX Lead — Interface e Design System | Ryan Gartlan | Curadoria de componentes, fidelidade visual nas telas do OS v0.1 | Biblioteca Figma, especificação de telas |
-| Dev Lead — tokens (acúmulo) | Ryan Gartlan | Definir contratos de naming W3C e versionamento de tokens via Tokens Studio | `tokens.json`, configuração Tokens Studio, Style Dictionary |
-| DevOps Engineer — pipeline visual | Larissa Temoteo | Esteira CI/CD, gates de regressão visual e acessibilidade, registry de artefatos | `.gitlab-ci.yml`, ambiente de preview, baseline Chromatic |
+| Dev Lead — tokens (acúmulo) | Ryan Gartlan | Definir contratos de naming W3C e versionamento de tokens via Tokens Studio | **tokens.json**, configuração Tokens Studio, Style Dictionary |
+| DevOps Engineer — pipeline visual | Larissa Temoteo | Esteira CI/CD, gates de regressão visual e acessibilidade, registry de artefatos | **.gitlab-ci.yml**, ambiente de preview, baseline Chromatic |
 | Frontend Developer | Rodrigo Lee | Implementar dashboard React + TypeScript + Tailwind consumindo tokens publicados | Componentes do dashboard operacional, telas de configuração de esteira |
 | Backend Developer | Davi Versa, Rafael Barbosa | APIs de manifesto de release (RNF003) e Problem Reports consumidas pelas telas | Endpoints e contratos consumidos pelo dashboard |
 | QA — regressão visual | Tainá Cortez | Revisão cruzada entre frentes, baseline visual e ata de critique | Relatórios de regressão, ata de Design Critique |
 | Product Owner / Scrum Master | [A DEFINIR — rotativo por sprint] | Priorização do backlog, facilitação das cerimônias | Backlog GitLab, agenda da sprint |
 | Ponto Focal Externo (stakeholder externo Jacto) | Thamires Silva (backup: Camille Amaral) | Aderência ao negócio, interlocução com líderes técnicos Vinícius e Roosevelt | Validação de telas-chave, sign-off de release |
 
-A dupla UX (Yasmin + Ryan) é mantida porque pesquisa de jornadas e construção de design system têm cadências distintas — a primeira nas Sprints 2–3, a segunda nas 4–5. Larissa permanece em DevOps por continuidade da Dupla B (Esteira) da Sprint 1, evitando re-onboarding no pipeline `.gitlab-ci.yml`. Ryan acumula tokens com UX de interface porque a fronteira entre componente Figma e token W3C é estreita demais para dois ownerships. Considerou-se um Design Producer dedicado [1, 2], descartado porque sete integrantes em sprint semanal são coerentes com DesignOps como Mentalidade, não como função especializada.
+A dupla UX (Yasmin + Ryan) é mantida porque pesquisa de jornadas e construção de design system têm cadências distintas — a primeira nas Sprints 2–3, a segunda nas 4–5. Larissa permanece em DevOps por continuidade da Dupla B (Esteira) da Sprint 1, evitando re-onboarding no pipeline **.gitlab-ci.yml**. Ryan acumula tokens com UX de interface porque a fronteira entre componente Figma e token W3C é estreita demais para dois ownerships. Considerou-se um Design Producer dedicado [1, 2], descartado porque sete integrantes em sprint semanal são coerentes com DesignOps como Mentalidade, não como função especializada.
 
 ### 2.2 Matriz RACI para decisões de design
 
@@ -92,7 +115,7 @@ O Critique é quinzenal, não semanal, porque uma sprint de sete dias não acumu
 Cada canal tem propósito definido para evitar que decisão importante se perca no fluxo síncrono do WhatsApp.
 
 - **WhatsApp (canal principal):** alinhamentos rápidos, dúvidas síncronas, bloqueios urgentes e coordenação de presença em sync. Não é fonte de verdade — qualquer decisão que sair daqui precisa virar issue ou comentário no GitLab.
-- **Issues e Merge Requests no GitLab:** decisões persistidas, justificativas arquiteturais, registro auditável de aprovações. É a fonte de verdade do projeto, ancorada em labels (`design-token`, `regressao-visual`, `handover`) que tornam buscas previsíveis.
+- **Issues e Merge Requests no GitLab:** decisões persistidas, justificativas arquiteturais, registro auditável de aprovações. É a fonte de verdade do projeto, ancorada em labels (**design-token**, **regressao-visual**, **handover**) que tornam buscas previsíveis.
 - **Comentários no Figma:** discussões sobre fidelidade visual, comportamento de componente e variantes, ancoradas ao próprio artefato — útil para que Yasmin e Ryan resolvam dúvidas locais sem fragmentar conversas em outro canal.
 - **Sync síncrono (presencial ou videochamada):** decisões com trade-off complexo, conflito entre duplas e validação com a Jacto envolvendo Thamires, Vinícius ou Roosevelt. Toda sync gera ata curta no GitLab, com decisão e responsável.
 
@@ -105,15 +128,15 @@ O componente Humanize [1] é onde times pequenos falham primeiro: conhecimento c
 **1. Onboarding de novo integrante (duas primeiras semanas).**
 
 - [ ] Acesso a GitLab, Figma, registry de tokens, ambiente de preview e grupo de WhatsApp concedidos na primeira sessão.
-- [ ] Leitura obrigatória do `DESIGN_OPS.md`, do `README` do repositório e das três últimas issues fechadas das Duplas A, B e C, para entender o estado atual da Esteira, da Arquitetura ISO 10746 e dos Requisitos SCM.
+- [ ] Leitura obrigatória do **DESIGN_OPS.md**, do **README** do repositório e das três últimas issues fechadas das Duplas A, B e C, para entender o estado atual da Esteira, da Arquitetura ISO 10746 e dos Requisitos SCM.
 - [ ] Sessão pareada com um integrante da dupla de destino em uma daily completa e em um sync pós-almoço antes de assumir issue própria.
-- [ ] Walkthrough guiado do `.gitlab-ci.yml` com Larissa, cobrindo gates de acessibilidade, registry de tokens e ambiente de Storybook.
+- [ ] Walkthrough guiado do **.gitlab-ci.yml** com Larissa, cobrindo gates de acessibilidade, registry de tokens e ambiente de Storybook.
 - [ ] Primeira contribuição supervisionada: micro-tarefa em token ou story de Storybook, com revisão obrigatória de Ryan e de mais um par da dupla destino.
 - [ ] Apresentação relâmpago na comunidade de prática até o fim da segunda semana, fixando o que foi aprendido.
 
 **2. Distribuição de conhecimento de design entre devs.**
 
-O risco maior é Ryan virar single point of failure por acumular UX de interface e ownership de tokens. Três mecanismos mitigam: (a) pair programming obrigatório em mudanças de UI que toquem dashboard, telas de esteira ou diagnósticos de Problem Report, com Ryan pareando com Rodrigo e Yasmin; (b) code review com dois aprovadores em toda MR que altere `tokens/` ou `components/`, com Larissa cobrindo pipeline e Tainá regressão visual; (c) Architecture Decision Records [5] para naming de token, convertendo memória individual em artefato versionado.
+O risco maior é Ryan virar single point of failure por acumular UX de interface e ownership de tokens. Três mecanismos mitigam: (a) pair programming obrigatório em mudanças de UI que toquem dashboard, telas de esteira ou diagnósticos de Problem Report, com Ryan pareando com Rodrigo e Yasmin; (b) code review com dois aprovadores em toda MR que altere **tokens/** ou **components/**, com Larissa cobrindo pipeline e Tainá regressão visual; (c) Architecture Decision Records [5] para naming de token, convertendo memória individual em artefato versionado.
 
 **3. Comunidade de prática interna.**
 
@@ -182,16 +205,6 @@ Essa composição responde diretamente à crítica de **Malouf (2017)** sobre o 
 
 ### 3.2 Arquitetura do fluxo (Design-to-CI/CD)
 
-<div align="center">
-  <sub>Figura 1 - Diagrama Fluxo Como o Trabalho é Feito - Realizado no draw.io</sub> <br><br>
-
-  <img src="img/com-feito-processos-ferramentas.png" width="800">
-
-  <br><br>
-  <sup>Fonte: Material produzido pelos autores (2026).</sup>
-</div>
-
-
 ```mermaid
 flowchart LR
     A[Figma] --> B[Tokens Studio]
@@ -204,6 +217,8 @@ flowchart LR
     G --> H
 ```
 
+![Arquitetura do fluxo Design-to-CI/CD: do Figma e Tokens Studio ao deploy do Design System, passando por GitLab, build Storybook e testes visuais](img/fluxo-design-to-cicd.png)
+
 O fluxo evidencia a transformação de artefatos de design em código executável e validado automaticamente, alinhando-se ao conceito de DesignOps como “DevOps do Design”.
 
 
@@ -211,13 +226,13 @@ O fluxo evidencia a transformação de artefatos de design em código executáve
 
 Para garantir consistência e rastreabilidade:
 
-* **Componentes:** `ds-button-primary`, `ds-card-user`
-* **Branches:** `design/feature-nome`, `tokens/update-colors`
+* **Componentes:** **ds-button-primary**, **ds-card-user**
+* **Branches:** **design/feature-nome**, **tokens/update-colors**
 * **Commits (Conventional Commits):**
 
-  * `feat(ui): adiciona componente botão`
-  * `fix(tokens): corrige escala de cores`
-  * `chore(storybook): atualiza documentação`
+  * **feat(ui): adiciona componente botão**
+  * **fix(tokens): corrige escala de cores**
+  * **chore(storybook): atualiza documentação**
 
 Essas convenções suportam automação e leitura por pipelines, alinhando-se às práticas de SCM e CI/CD.
 
@@ -234,11 +249,125 @@ Para evitar o surgimento de ferramentas paralelas não governadas:
 Esse controle garante aderência à ISO/IEC 25010 no aspecto de **manutenibilidade e rastreabilidade**, evitando perda de consistência operacional.
 
 
-### 3.5 Decisões de trade-off
+### Decisões de trade-off
 
 * **Centralização vs Flexibilidade:** optou-se por centralização no GitLab, sacrificando flexibilidade individual em favor de consistência sistêmica.
 * **Automação vs Simplicidade:** adoção de regressão visual automatizada aumenta complexidade inicial, mas reduz drasticamente erros em produção.
 * **Ferramentas especializadas vs generalistas:** priorizou-se ferramentas especializadas (Tokens Studio, Chromatic) para garantir qualidade técnica.
+
+### Referências da Seção 3
+
+- [1] Nielsen Norman Group (2020). *Design Operations 101*. https://www.nngroup.com/articles/design-operations-101/
+- [2] Malouf, P. (2017). *What is Design Operations and Why Should You Care?*. Designer Hangout. https://medium.com/designer-hangout/what-is-design-operations-and-why-should-you-care-b72f02b47761
+- [3] Figma. *Documentation*. https://help.figma.com/
+- [4] Storybook. *Documentation*. https://storybook.js.org/docs
+- [5] GitLab. *CI/CD Documentation*. https://docs.gitlab.com/ee/ci/
+- [6] Conventional Commits. *A specification for adding human and machine readable meaning to commit messages*. https://www.conventionalcommits.org/
+
+**Responsável:** Rodrigo Lee
+
+---
+
+## 4. Design System, Tokens e Fluxo Design-to-Code
+
+### Contexto e objetivo
+
+O nosso entregável para a Jacto Drones é o **Operating System v0.1 de Continuous Delivery** — um meta-produto de engenharia que organiza, automatiza e mede o desenvolvimento de software ao longo das três frentes da Jacto Drones: firmware embarcado (Frente 1), plataforma de serviços ao cliente (Frente 2) e plataforma de gestão e BI (Frente 3). A camada visual do OS é o **dashboard operacional** que expõe cycle time, throughput, estado do backlog e gargalos de fluxo a líderes técnicos e ao ponto focal do projeto. Numa ferramenta cujo propósito é dar visibilidade sobre o próprio processo de engenharia, **inconsistência visual mina a confiança nos dados**: se o mesmo "verde" significa coisas diferentes em telas distintas, o dashboard deixa de ser sinal e vira ruído. Esse atrito é exatamente o gargalo que Malouf (2017) descreve quando aponta que "design tools don't offer the marketplace the same level of scale" que ferramentas de desenvolvimento já oferecem [1].
+
+A nossa resposta é tratar o design system como **código versionado**: Design Tokens funcionam como contrato formal entre design e implementação, e um pipeline determinístico traduz mudanças visuais em build sem intervenção manual — em coerência com o objetivo central do próprio OS, que é eliminar atividades repetitivas e padronizar critérios de qualidade. Esta seção descreve a arquitetura de tokens em três camadas, o pipeline Design-to-Code passo a passo (etapas humanas vs. automatizadas), o versionamento SemVer aplicado a tokens e componentes, a política de breaking changes com período de deprecation e a matriz de priorização que protege o time de "construir tudo do zero".
+
+### 4.1 Arquitetura de Design Tokens em três camadas
+
+Adotamos a arquitetura em três níveis recomendada pelo Design Tokens Community Group do W3C [2] e popularizada pelo Style Dictionary, da Amazon [3]:
+
+| Camada | O que armazena | Exemplo no Jacto Drones OS | Quem altera |
+|---|---|---|---|
+| **Global tokens** | Valores brutos, sem semântica de uso. | **color-green-500: #16A34A**, **space-200: 8px**, **font-size-300: 16px** | UX Lead, raramente. |
+| **Alias tokens** | Intenção semântica que aponta para um global. | **color-status-success: {color-green-500}** (build verde), **color-frente-firmware: {color-purple-500}** | UX Lead, com revisão. |
+| **Component tokens** | Tokens específicos de componente, apontando para um alias. | **kpi-card-success-bg: {color-status-success}**, **pipeline-badge-success-text: {color-status-success}** | UX Lead + Líder Técnico, em conjunto. |
+
+A vantagem desta separação é operacional: alterar a cor de "build com sucesso" em todos os widgets do dashboard exige mudar **um único alias token**, e todos os componentes consumidores (KPI cards de cycle time, badges de status de pipeline, ícones de estado no backlog) herdam a mudança automaticamente no próximo build. É o equivalente, no design, ao princípio DRY (Don't Repeat Yourself) que rege engenharia de software — uma única fonte da verdade, propagada por composição.
+
+**Decisão de trade-off:** consideramos uma estrutura plana de dois níveis (global → component) por simplicidade, mas descartamos porque acopla decisões visuais a componentes específicos — um anti-padrão que torna rebrand e tematização (claro/escuro, alto contraste) exponencialmente caros. A camada de alias é o que permite, por exemplo, atribuir uma cor consistente a cada uma das três frentes (firmware, serviços, BI) em qualquer visualização do dashboard, sem duplicar regras em cada componente.
+
+### 4.2 Pipeline Design-to-Code, etapa por etapa
+
+O fluxo abaixo é executado a cada mudança em token ou componente. Cada etapa é marcada como **[manual]** quando exige ação humana e **[automatizado]** quando roda no pipeline sem intervenção.
+
+1. **[manual] Edição no Figma.** O UX Lead altera o token usando o plugin Tokens Studio for Figma [4], que persiste os valores em formato JSON dentro do próprio arquivo de design.
+2. **[automatizado] Sync para repositório Git.** O plugin sincroniza as mudanças com a branch **design-tokens** do repositório **jacto-design-system/** no GitLab via integração nativa.
+3. **[automatizado] Abertura de Merge Request.** Um webhook do GitLab cria um MR com o diff dos tokens em formato JSON legível, anexando o baseline anterior para revisão.
+4. **[automatizado] Pipeline de validação.** Roda em sequência:
+   - Validação de schema (estrutura JSON conforme a spec do W3C [2]).
+   - Build com Style Dictionary [3], que gera artefatos em CSS Custom Properties, JS (ES Modules) e JSON (consumível também por superfícies não-web — caso o OS evolua para um CLI ou plugin de IDE com identidade visual coerente).
+   - Geração de preview no Storybook em URL temporária por MR (deploy de review).
+5. **[manual] Code review duplo.** Líder Técnico aprova consistência técnica (nomenclatura, ausência de tokens órfãos); UX Lead aprova fidelidade visual no preview.
+6. **[automatizado] Merge na main.** Dispara rebuild dos componentes consumidores e publica nova versão do pacote **@jacto/design-tokens** no registry interno do GitLab.
+7. **[automatizado] Testes de regressão visual.** Chromatic compara screenshots dos componentes contra o baseline aprovado; qualquer diff não-aprovado bloqueia o deploy (detalhamento na Seção 5).
+8. **[automatizado] Deploy em staging.** A aplicação do dashboard rebuilds automaticamente e sobe em ambiente de homologação para validação antes do release manual em produção.
+
+```mermaid
+flowchart LR
+    A["UX Lead<br/>Figma + Tokens Studio"] -->|sync| B["Branch<br/>design-tokens"]
+    B -->|MR| C["Pipeline CI"]
+    C --> D{"Validações"}
+    D -->|schema OK| E["Style Dictionary<br/>build"]
+    E --> F["Storybook<br/>preview por MR"]
+    F --> G["Code Review<br/>Líder Técnico + UX"]
+    G -->|aprovado| H["Merge main"]
+    H --> I["Publish<br/>@jacto/design-tokens"]
+    I --> J["Chromatic<br/>regressão visual"]
+    J -->|sem diff| K["Deploy staging"]
+    D -->|falha| L["Bloqueia MR"]
+    J -->|diff não aprovado| L
+```
+
+![Pipeline Design-to-Code: do Figma ao deploy em staging, com gates de validação e regressão visual](img/design-tokens-pipeline.png)
+
+### 4.3 Versionamento e política de breaking changes
+
+Aplicamos Semantic Versioning (SemVer) ao pacote de tokens e ao pacote de componentes, com regras explícitas que servem de contrato com os consumidores do dashboard do OS — e, futuramente, com qualquer outra superfície (CLI, plugins de IDE) que precise reaproveitar a identidade visual:
+
+- **PATCH** (**1.0.x**): correções visuais que não alteram contrato — ajuste de 1px num espaçamento, fix de cor em estado hover, correção de typo em label.
+- **MINOR** (**1.x.0**): novos tokens, novos componentes ou novas variantes de componentes existentes — adições retrocompatíveis (consumidor pode atualizar sem mexer em código).
+- **MAJOR** (**x.0.0**): renomeação ou remoção de tokens, mudança de assinatura de prop em componente, qualquer alteração que exija refactor no consumidor.
+
+**Política de breaking changes** em três passos:
+
+1. **Aviso prévio.** Toda mudança breaking abre uma issue no GitLab com a label **breaking-change** e prazo mínimo de uma sprint antes do release. A issue precisa listar os componentes/telas impactados.
+2. **Período de deprecation.** O token ou componente antigo continua funcional por uma versão MAJOR completa, emitindo **console.warn** em desenvolvimento (e **@deprecated** JSDoc para integração com TypeScript). Isso dá ao time consumidor uma janela explícita para migrar.
+3. **Changelog explícito.** Seguindo o padrão Keep a Changelog [5], cada release documenta **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**, **Security**. O CI exige que o **CHANGELOG.md** tenha sido atualizado para que o MR seja aprovado.
+
+Esta política é coerente com um dos objetivos centrais do OS, segundo a TAPI da Jacto Drones: **estabelecer critérios padronizados de qualidade e Definition of Done**. Versionar tokens com a mesma rigidez com que versionamos código de aplicação reforça que mudanças visuais são mudanças de produto — e, como tal, precisam ser rastreáveis e reversíveis.
+
+### 4.4 Matriz de priorização — o que entra primeiro no design system
+
+Um erro recorrente em design systems acadêmicos é tentar componentizar tudo desde o início, gerando overhead que o time não consegue sustentar até o final do semestre. Para evitar isso, priorizamos componentes pela matriz frequência × custo, derivada do componente **Prioritize** do framework da NN/g [6]:
+
+|   | **Baixo custo de implementação** | **Alto custo de implementação** |
+|---|---|---|
+| **Alta frequência de uso** | **Prioridade 1 — Fazer primeiro** (Button, Input, KPICard, StatusBadge) | **Prioridade 2 — Fazer segundo** (Modal, BacklogTable, MetricChart, FilterPanel) |
+| **Baixa frequência de uso** | **Prioridade 3 — Fazer se sobrar tempo** (Tag, Tooltip, Breadcrumb) | **Não fazer** (componentes hiper-específicos de uma única tela) |
+
+A NN/g recomenda "uncovering and exposing bottlenecks in the design workflow" antes de adicionar complexidade ao sistema [6]. No nosso caso, os componentes da Prioridade 1 são justamente os que aparecem em **todas** as telas do dashboard de desenvolvimento — **KPICard** exibindo cycle time, **StatusBadge** marcando saúde do build, **Button** como ação primária. Investir nesses componentes primeiro maximiza o retorno por hora de design system e protege o time de gastar capacidade em elementos que serão usados duas vezes.
+
+### Decisões de trade-off
+
+* **Tokens Studio + Git vs. exportação manual:** consideramos exportação manual de tokens via "Inspect" do Figma, mas descartamos porque introduz drift entre design e código. O sync via Tokens Studio garante que o JSON versionado no Git é a única fonte da verdade — alinhado ao objetivo do próprio OS de eliminar atividades manuais repetitivas.
+* **Style Dictionary vs. soluções proprietárias (Theo, Diez):** avaliamos Theo (Salesforce) e Diez, mas optamos pelo Style Dictionary por ter comunidade ativa, suportar múltiplos formatos de output e ser stack-agnóstico — útil porque o OS pode evoluir para superfícies não-web (CLI, plugin de IDE) que ainda assim precisam respeitar a identidade visual.
+* **Component tokens granulares vs. apenas alias:** avaliamos parar a hierarquia na camada de alias para reduzir indireção, mas mantivemos a terceira camada porque permite que componentes críticos do dashboard (**KPICard**, **StatusBadge**, **AlertBanner**) tenham contratos visuais explícitos, facilitando auditoria de acessibilidade e rastreabilidade de mudanças.
+* **Versionamento único vs. independente entre tokens e componentes:** consideramos um único pacote monolítico, mas separamos **@jacto/design-tokens** e **@jacto/design-system** (componentes) para que aplicações leves (e.g., um futuro CLI do OS com saída TUI estilizada) possam consumir tokens "puros" sem arrastar a biblioteca de componentes inteira — reduz a superfície de breaking change.
+
+### Referências da Seção 4
+
+- [1] Malouf, D. (2017). *What is design operations and why should you care?*. Designer Hangout. https://medium.com/designer-hangout/what-is-design-operations-and-why-should-you-care-b72f02b47761
+- [2] Design Tokens Community Group (W3C). *Design Tokens Format Module*. https://tr.designtokens.org/format/
+- [3] Amazon. *Style Dictionary — A build system for creating cross-platform styles*. https://amzn.github.io/style-dictionary/
+- [4] Tokens Studio. *Tokens Studio for Figma — Documentation*. https://docs.tokens.studio/
+- [5] Keep a Changelog. https://keepachangelog.com/
+- [6] Kaplan, K. (2019). *DesignOps 101*. Nielsen Norman Group. https://www.nngroup.com/articles/design-operations-101/
+
+**Responsável:** Ryan Gartlan
 
 ---
 
@@ -248,7 +377,7 @@ Esse controle garante aderência à ISO/IEC 25010 no aspecto de **manutenibilida
 
 No projeto da Jacto Drones, os artefatos de design system (componentes UI, Design Tokens, estilos globais) devem fluir pela mesma esteira de automação que o firmware e a telemetria. Hoje, a plataforma de serviços (Frente 2) e a plataforma de BI (Frente 3) dependem de mudanças visuais que precisam chegar a produção sem regressão, sem inconsistência de marca e sem quebra de acessibilidade. Sem um pipeline determinístico que valide, testa e promova artefatos de UI, o risco é alto: retrabalho, inconsistência visual e aderência reduzida às normas WCAG que operações críticas (como dashboards de campo) exigem.
 
-Esta seção detalha como o DesignOps se integra ao pipeline CI/CD através de estágios de linting, build, testes automatizados (acessibilidade e regressão visual), gates de qualidade e observabilidade em produção. O objetivo operacional é que **toda mudança de design ou token que chegue a main tenha passado por validação automatizada**, e que saibamos em tempo real se ela impactou a experiência do usuário final.
+Esta seção detalha como o DesignOps se integra ao pipeline CI/CD através de estágios de linting, build, testes automatizados (acessibilidade e regressão visual), gates de qualidade e observabilidade em produção. O objetivo operacional é que **toda mudança de design ou token que chegue a main tenha passado por validação automatizada**, e que saibamos em tempo real se ela impactou a experiência do usuário final. O desenho descrito é o **estado-alvo** do pipeline para o OS v0.1: alguns gates já estão em rascunho (lint de schema, build do Storybook), outros serão implementados ao longo das próximas sprints (regressão visual e RUM em produção).
 
 ### 5.1 Arquitetura do Pipeline: Estágios e Pseudo-Configuração
 
@@ -396,12 +525,12 @@ Um DesignOps maduro não é apenas "rápido" — é **confiável**. Por isso, im
 
 | Gate | Critério | Responsabilidade | Ação se Falhar |
 |---|---|---|---|
-| **Schema Tokens** | Estrutura JSON conforme W3C spec | `lint:schema` | ❌ Bloqueia MR |
-| **WCAG AA Contrast** | Razão de contraste ≥ 4.5:1 (texto); ≥ 3:1 (gráficos) | `test:accessibility` | ❌ Bloqueia MR |
-| **Regressão Visual** | Zero diffs não-aprovados em Chromatic | `test:visual-regression` | ❌ Bloqueia MR |
-| **Token Contrato** | Nomes de tokens quebrados não aparecem em imports | `lint:schema` | ❌ Bloqueia MR |
-| **Performance CSS** | Bundle de CSS < 50KB gzipped | `build:design-system` | ⚠️ Aviso, pode passar |
-| **Documentação** | Componentes novos têm stories + docstring | Code Review Manual | ❌ Bloqueia MR |
+| **Schema Tokens** | Estrutura JSON conforme W3C spec | **lint:schema** | Bloqueia MR |
+| **WCAG AA Contrast** | Razão de contraste ≥ 4.5:1 (texto); ≥ 3:1 (gráficos) | **test:accessibility** | Bloqueia MR |
+| **Regressão Visual** | Zero diffs não-aprovados em Chromatic | **test:visual-regression** | Bloqueia MR |
+| **Token Contrato** | Nomes de tokens quebrados não aparecem em imports | **lint:schema** | Bloqueia MR |
+| **Performance CSS** | Bundle de CSS < 50KB gzipped | **build:design-system** | Aviso (não bloqueia) |
+| **Documentação** | Componentes novos têm stories + docstring | Code Review Manual | Bloqueia MR |
 
 A razão de ser dura: uma cor com contraste insuficiente em um dashboard de operação de drone pode causar leitura errada de status crítico em campo. A Jacto não pode ter "quase acessível".
 
@@ -409,8 +538,8 @@ A razão de ser dura: uma cor com contraste insuficiente em um dashboard de oper
 
 Deploy em produção é irreversível em tempo real, mas DesignOps precisa de um plano B. Adotamos:
 
-1. **Imutabilidade de Releases:** Cada versão published (`@jacto/design-tokens@1.2.0`) é imutável no registry. Nunca sobrescrevemos.
-2. **Rollback Automático via Feature Flag:** No runtime, a aplicação cliente lê um feature flag que aponta qual versão de tokens consumir. Se versão `1.2.1` causar problema em RUM, ops reduz a flag para `1.2.0` em segundos, sem redeploy.
+1. **Imutabilidade de Releases:** Cada versão published (**@jacto/design-tokens@1.2.0**) é imutável no registry. Nunca sobrescrevemos.
+2. **Rollback Automático via Feature Flag:** No runtime, a aplicação cliente lê um feature flag que aponta qual versão de tokens consumir. Se versão **1.2.1** causar problema em RUM, ops reduz a flag para **1.2.0** em segundos, sem redeploy.
 3. **Post-Mortem Obrigatório:** Todo rollback abre uma issue com template obrigatório para rastrear a causa raiz e prevenir recorrência.
 
 ### 5.4 Observabilidade Pós-Deploy: Real User Monitoring (RUM)
@@ -421,11 +550,11 @@ Depois que tokens e componentes chegam a produção, precisamos saber: o usuári
 - **CLS (Cumulative Layout Shift):** Instabilidade visual. Meta: < 0.1. Se um token novo de espaçamento quebrar layout, CLS vai para 0.3+.
 - **FID (First Input Delay):** Responsividade a cliques. Meta: < 100ms. Se CSS novo causar jank, aparece em RUM.
 
-Instrumentação: Google Analytics 4 (GA4) injeta automaticamente Web Vitals Assessment via `web-vitals.js`. Dashboard Jacto monitora em tempo real. Se FID dispara > 500ms, oncall de design é acionada.
+Instrumentação: Google Analytics 4 (GA4) injeta automaticamente Web Vitals Assessment via **web-vitals.js**. Dashboard Jacto monitora em tempo real. Se FID dispara > 500ms, oncall de design é acionada.
 
 ### 5.5 O Loop DevOps Infinito Aplicado a DesignOps
 
-DevOps classicamente ensina o ciclo infinito: Plan → Build → Test → Deploy → Operate → Observe → Plan (Humble & Farley, 2010). Aplicamos o mesmo ao design:
+DevOps classicamente ensina o ciclo infinito: Plan → Build → Test → Deploy → Operate → Observe → Plan [5]. Aplicamos o mesmo ao design:
 
 ```
 Plan (Design refinement em Figma)
@@ -460,9 +589,11 @@ flowchart LR
     I -->|live| J["Observe RUM<br/>Core Web Vitals"]
     J -->|Issue if CLS > 0.1| K["Alerta Oncall"]
     K -->|Rollback| L["Feature Flag<br/>tokens@1.1.0"]
-    C -->|Falha| M["❌ Bloqueia MR<br/>Deve corrigir"]
+    C -->|Falha| M["Bloqueia MR<br/>Deve corrigir"]
     E -->|Falha| M
 ```
+
+![Pipeline CI/CD integrado: do design no Figma ao deploy em produção, com observabilidade RUM e rollback via feature flag](img/pipeline-cicd-integrado.png)
 
 ### Decisões de trade-off
 
@@ -472,267 +603,114 @@ flowchart LR
 
 * **Quality Gates Restritivos vs. Velocidade:** Consideramos versão "leve" do pipeline sem gate de acessibilidade ou regressão visual para iterar mais rápido. Descartamos porque a Jacto opera crítico em campo — segurança e acessibilidade não são negociáveis. Gastar 5 minutos extra em testes evita horas de retrabalho.
 
+### Referências da Seção 5
+
+- [1] GitLab. *GitLab CI/CD Documentation*. https://docs.gitlab.com/ee/ci/
+- [2] Chromatic. *Visual Testing & Review Platform for Design Systems*. https://www.chromatic.com/docs
+- [3] Deque Systems. *Axe DevTools — Accessibility Testing Engine*. https://www.deque.com/axe/devtools/
+- [4] Google. *Web Vitals: Essential metrics for a healthy site*. https://web.dev/vitals/
+- [5] Humble, J., & Farley, D. (2010). *Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation*. Addison-Wesley.
+- [6] W3C Design Tokens Community Group. *Design Tokens Format Module*. https://tr.designtokens.org/format/
+
+**Responsável:** Rafael Barbosa
+
 ---
 
-## 5. Integração com Esteira CI/CD
+## 6. Mensuração de Impacto (REACH + DoD)
 
 ### Contexto e objetivo
 
-No projeto da Jacto Drones, planejamos que os artefatos de design system (componentes UI, Design Tokens, estilos globais) fluam pela mesma esteira de automação que o firmware e a telemetria. Hoje, a plataforma de serviços (Frente 2) e a plataforma de BI (Frente 3) dependem de mudanças visuais que chegam a produção sem validação sistemática — retrabalho, inconsistência visual e risco de quebra de acessibilidade são inevitáveis. 
+A Seção 4 estabeleceu o Design System como contrato versionado e a Seção 5 montou os gates automáticos do pipeline. Esta seção responde à pergunta complementar — **como sabemos que o investimento em DesignOps está, de fato, melhorando o Jacto Drones Operating System v0.1?** Medir impacto de design é notoriamente difícil: Kaplan (NN/g) [1] aponta que times de design frequentemente operam sob pressão de "provar valor" sem o ferramental quantitativo que engenharia tem. O risco é cair em duas armadilhas opostas — ou medir nada (e perder a janela de melhoria contínua), ou medir tudo (e gastar capacidade do time em métricas que não viram decisão). Adotamos o **Framework REACH** [2] como espinha dorsal da medição, complementado por uma **Definition of Done** verificável e por **triangulação** entre dados quantitativos, qualitativos e operacionais [3].
 
-Esta seção detalha nossa proposta operacional: como queremos que o DesignOps se integre ao pipeline CI/CD através de estágios de linting, build, testes automatizados (acessibilidade e regressão visual), gates de qualidade e observabilidade em produção. O objetivo é que toda mudança de design ou token que chegue a produção tenha passado por validação automatizada, mitigando erros humanos e garantindo experiência consistente.
+### 6.1 Por que medir DesignOps é difícil
 
-### 5.1 Arquitetura do Pipeline: Estágios e Pseudo-Configuração Proposta
+DesignOps mistura artefatos (componentes, tokens), práticas (rituais, comunicação) e cultura (alinhamento). A maioria das métricas tradicionais de engenharia mede o "quê", não o "porquê": lead time captura velocidade, mas não consistência visual; cobertura de testes captura corretude técnica, mas não fidelidade ao design. Por isso adotamos triangulação — nenhum sinal isolado é suficiente para decidir.
 
-Propomos um pipeline GitLab CI/CD com seis estágios principais, disparados automaticamente ao push em branches de feature ou abertura de Merge Request. Este é um design conceitual que será implementado iterativamente conforme resolvemos dependencies técnicas:
+### 6.2 Framework REACH adaptado ao Jacto Drones OS v0.1
 
-```yaml
-# .gitlab-ci.yml — Design System Pipeline (Proposta v1.0)
-# Cada estágio valida artefatos de design antes de chegarem a produção
+REACH — Results, Efficiency, Ability, Clarity, Health — é o framework de medição publicado pela NN/g [2]. Adaptado ao nosso contexto:
 
-stages:
-  - lint      # Validação de schema, acessibilidade, linting de CSS/JS
-  - build     # Compilação de tokens, Storybook, pacote npm
-  - test      # Testes de acessibilidade e regressão visual
-  - preview   # Deploy temporário para review em MR
-  - deploy    # Deploy em staging/produção (aprovação manual)
-  - observe   # Coleta de observabilidade (RUM, Core Web Vitals)
+**R — Results.** O que muda no produto.
 
-variables:
-  DESIGN_SYSTEM_REGISTRY: "gitlab-registry"  # Placeholder: será configurado na sprint de infra
-  DS_VERSION: "0.1.0-alpha"                  # Versionamento SemVer
+- Redução de bugs visuais por release (baseline: contagem da Sprint 1).
+- Task success rate no dashboard: engenheiros Jacto identificam gargalos de cycle time sem ajuda em menos de 30 segundos.
+- Percentual de telas em conformidade com WCAG 2.1 AA.
 
-# ============ ESTÁGIO LINT ============
-lint:tokens-schema:
-  stage: lint
-  image: node:18-alpine
-  script:
-    - npm install
-    - npm run validate:tokens
-      # Valida estrutura JSON contra W3C Design Tokens Format spec
-      # Garante: naming conventions, tipos esperados, ausência de tokens órfãos
-    - npm run lint:css
-      # Stylelint: verifica WCAG AA contrast ratio (≥ 4.5:1 para texto)
-      # Detecta potenciais problemas de acessibilidade antes do build
-    - npm run lint:js
-      # ESLint + @testing-library: código de componentes segue padrões
-  artifacts:
-    reports:
-      sast: lint-report.json
-  allow_failure: false
-  only:
-    - merge_requests
-    - main
+**E — Efficiency.** Quanto custa entregar design.
 
-# ============ ESTÁGIO BUILD ============
-build:design-system:
-  stage: build
-  image: node:18-alpine
-  dependencies:
-    - lint:tokens-schema
-  script:
-    - npm run build:tokens
-      # Style Dictionary: transforma tokens em CSS Custom Properties, JS/TS
-      # Gera camadas: global → alias → component (conforme Seção 4)
-    - npm run build:storybook
-      # Compila todas as stories dos componentes em HTML/JS estático
-      # Output vai em .storybook/dist/
-    - npm run build:package
-      # Empacota @design-system/tokens como módulo npm
-      # Será armazenado em registry local do GitLab (configurável later)
-  artifacts:
-    paths:
-      - dist/tokens/
-      - .storybook/dist/
-      - pkg/
-    expire_in: 14 days
-  only:
-    - merge_requests
-    - main
+- Lead time de design: tempo médio entre handoff de Figma e merge na main.
+- Percentual de MRs de tokens que passam no primeiro build (sem retrabalho).
+- Taxa de reuso de componentes: quantas telas consomem componentes da biblioteca vs. componentes ad-hoc.
 
-# ============ ESTÁGIO TEST ============
-test:accessibility:
-  stage: test
-  image: node:18-alpine
-  dependencies:
-    - build:design-system
-  script:
-    - npm run test:a11y
-      # axe-core + Pa11y executam contra Storybook compilado
-      # Valida: contrast ratio, alt text, ARIA labels, keyboard navigation
-      # Falha se encontrar violação WCAG 2.1 AA
-  artifacts:
-    reports:
-      accessibility: a11y-results.json
-  allow_failure: false
+**A — Ability.** Maturidade da operação.
 
-test:visual-regression:
-  stage: test
-  image: node:18-alpine
-  dependencies:
-    - build:design-system
-  script:
-    - npm run test:visual
-      # Compara screenshots dos componentes vs baseline aprovado anteriormente
-      # Ferramentas candidatas: Chromatic (SaaS), BackstopJS (self-hosted)
-      # Bloqueia merge se houver diff visual não-revisado/aprovado
-  artifacts:
-    reports:
-      dotenv: visual-test.env
-  allow_failure: false
+- Cobertura do DS: percentual de telas do dashboard que usam exclusivamente componentes versionados.
+- Número de novos componentes adicionados por sprint (sinal de ritmo sustentável).
+- Frequência de uso de exceções (ver Seção 7) — exceções recorrentes sinalizam gap no DS.
 
-# ============ ESTÁGIO PREVIEW ============
-deploy:preview:
-  stage: preview
-  image: node:18-alpine
-  dependencies:
-    - build:design-system
-  script:
-    - npm run deploy:storybook-mr-preview
-      # Deploy Storybook em URL temporária para cada MR
-      # URL padrão: https://<mr-id>.preview.<project-domain>
-      # Facilita review visual antes de merge
-  environment:
-    name: preview/$CI_MERGE_REQUEST_IID
-    url: https://$CI_MERGE_REQUEST_IID.preview.jacto-design.dev  # Placeholder
-    auto_stop_in: 7 days
-  only:
-    - merge_requests
+**C — Clarity.** Alinhamento entre time, parceira (Thamires) e líderes técnicos (Vinícius, Roosevelt).
 
-# ============ ESTÁGIO DEPLOY ============
-deploy:staging:
-  stage: deploy
-  image: node:18-alpine
-  dependencies:
-    - test:accessibility
-    - test:visual-regression
-  script:
-    - npm run build:artifacts
-    - npm run publish:staging
-      # Publica tokens compilados em ambiente de staging
-      # Aplicações podem consumir e testar antes da produção
-  environment:
-    name: staging
-    url: https://staging-design.jacto.dev  # Placeholder
-  when: manual
-  only:
-    - main
+- Percentual de critérios de aceite revisados antes da implementação (medido em amostra de issues).
+- Coerência entre Figma e Storybook auditada por amostragem mensal.
+- NPS interno do handover Design→Dev (escala 0–10, aplicado ao final de cada sprint).
 
-deploy:production:
-  stage: deploy
-  image: node:18-alpine
-  dependencies:
-    - test:accessibility
-    - test:visual-regression
-  script:
-    - npm run publish:production
-      # Publica @design-system/tokens no registry privado
-      # Aplicações frontend atualizam dependency e consomem novos tokens
-  environment:
-    name: production
-    url: https://design.jacto.dev  # Placeholder
-  when: manual
-  only:
-    - tags
+**H — Health.** Saúde sustentável do time.
 
-# ============ ESTÁGIO OBSERVE ============
-observe:rum-setup:
-  stage: observe
-  image: alpine:latest
-  script:
-    - echo "Configurando coleta de RUM para versão $CI_COMMIT_TAG"
-    # Seria disparado uma chamada para ativar instrumentação de RUM
-    # Iniciaria coleta de Core Web Vitals (LCP, CLS, FID) para novo release
-  only:
-    - tags
-```
+- Pulse survey quinzenal de três perguntas (carga, atrito, autonomia) em escala Likert.
+- Volume de retrabalho como sinal de fricção: retrabalho acima de 15% do esforço da sprint dispara retrospectiva direcionada.
+- Bus factor de tokens e componentes (ver Seção 2): meta de pelo menos duas pessoas com ownership compartilhado.
 
-### 5.2 Quality Gates: Travas que Queremos Implementar
+### 6.3 Definition of Done para entregas de UI
 
-Nosso objetivo é implementar gates automáticos que impeçam merge de mudanças de design que violem critérios mínimos. A razão: em operações críticas de drones, um contraste de cor inadequado ou layout quebrado pode causar interpretação errada de dados:
+DoD verificável, anexada a toda issue de UI antes do merge:
 
-| Gate | Critério | Como Valida | Bloqueia Merge? |
-|---|---|---|---|
-| **Schema Tokens** | Estrutura JSON conforme W3C spec | `lint:tokens-schema` | ✅ Sim |
-| **WCAG AA Contrast** | Razão ≥ 4.5:1 (texto); ≥ 3:1 (gráficos) | `test:accessibility` via axe-core | ✅ Sim |
-| **Regressão Visual** | Zero diffs não-aprovados em ferramente de teste | `test:visual-regression` | ✅ Sim |
-| **Token Contrato** | Nomes/refs de tokens não quebram em imports | `lint:tokens-schema` | ✅ Sim |
-| **Performance CSS** | Bundle compilado < 50KB gzipped (meta) | `build:design-system` | ⚠️ Aviso |
-| **Documentação** | Componentes novos têm Storybook story + docstring | Code Review manual | ✅ Sim |
+- [ ] Design revisado pelo UX Lead (aprovação registrada na MR).
+- [ ] Tokens aplicados (zero valores hardcoded; lint quebra build em violação).
+- [ ] WCAG 2.1 AA validado (axe-core no pipeline, ver Seção 5).
+- [ ] Responsivo validado em pelo menos dois breakpoints (mobile, desktop).
+- [ ] Performance: bundle CSS final dentro do budget (≤ 50KB gzipped).
+- [ ] Storybook story criada com variantes principais e estado de loading.
+- [ ] Componente novo, se houver, documentado com props e exemplos.
+- [ ] Mudança visível em preview (ver Seção 5) anexada à MR para Thamires ou líderes Jacto, quando relevante.
 
-Por que tão restritivo? A alternativa é ter "design técnico" sem validação, que resulta em retrabalho entre sprints. Gastar 5 minutos extra em testes agora evita horas de debugging depois.
+### 6.4 Triangulação de evidências
 
-### 5.3 Estratégia de Rollback e Recuperação
+Inspirada em **Value-Centered Design** [3], cada decisão de melhoria do DesignOps cruza três fontes — sinal único é tratado como hipótese, não como evidência:
 
-Queremos implementar um plano B para quando algo der errado em produção:
+| Tipo | Origem | Exemplo |
+|---|---|---|
+| **Quantitativo** | Pipeline, RUM, registry | Lead time, cobertura do DS, Core Web Vitals |
+| **Qualitativo** | Pulse survey, Critique, NPS interno | Percepção de fricção, alinhamento entre duplas |
+| **Operacional** | Issues, exceções, retrabalho | Frequência de exceções ao DS, retrabalho por sprint |
 
-1. **Imutabilidade de Releases:** Cada versão publicada (`@design-system/tokens@1.2.0`) é imutável no registry. Nunca sobrescrevemos.
-2. **Versionamento Semântico Rigoroso:** Seguimos Keep a Changelog — PATCH para correções, MINOR para novas features, MAJOR para breaking changes.
-3. **Período de Deprecation:** Tokens/componentes descontinuados ficam 1 versão MAJOR inteira com warnings antes de serem removidos.
-4. **Rollback Manual Controlado:** Se novas mudanças causarem problema em produção, revertemos para versão anterior do pacote.
-5. **Post-Mortem Obrigatória:** Todo incident abre issue com checklist de root cause analysis.
+Triangulação ataca diretamente o problema da medição de DesignOps: nenhuma métrica sozinha captura artefato + prática + cultura simultaneamente, mas a interseção das três fontes reduz risco de decidir com base em ruído.
 
-### 5.4 Observabilidade Desejada: Monitorar Após Deploy
+### 6.5 Cadência de medição
 
-Depois que tokens chegam a produção, queremos saber: de fato funcionou? Propomos coletar três Core Web Vitals do Google:
+| Frequência | O que medir | Output |
+|---|---|---|
+| **Sprint (semanal)** | Lead time, retrabalho, pulse survey, exceções abertas | Ata curta da retro com 1–3 ações |
+| **Release** | WCAG, regressão visual, Core Web Vitals (RUM), DoD | Relatório anexo à tag de release |
+| **Trimestre** | Cobertura do DS, NPS interno, bus factor, maturidade REACH | Revisão de OKRs do DesignOps |
 
-- **LCP (Largest Contentful Paint):** Tempo até elemento visual principal renderizar. Meta: < 2.5s. Se novo CSS for ineficiente, LCP sobe.
-- **CLS (Cumulative Layout Shift):** Instabilidade visual durante carregamento. Meta: < 0.1. Se token de espaçamento quebrar layout, CLS piora.
-- **FID (First Input Delay):** Tempo de resposta a clique. Meta: < 100ms. Se novo CSS causar jank, aparece aqui.
+Cadências escalonadas evitam ruído (medir tudo toda sprint cansa o time) e perda de sinal (esperar o trimestre é tarde para fricção emergente). Sprint olha fluxo, release olha qualidade, trimestre olha maturidade.
 
-Implementação proposta: Instrumentaríamos com Google Analytics 4 (GA4) + `web-vitals.js`. Dashboard mostraria em tempo real. Se métrica crítica degradar, equipe é acionada para investigar.
+### Decisões de trade-off
 
-### 5.5 O Loop DevOps Infinito Aplicado a DesignOps
+- **REACH completo vs. métrica única (e.g., NPS):** consideramos adotar apenas NPS interno por simplicidade, mas descartamos porque NPS isolado não captura *por que* a percepção mudou. REACH força olhar para causa (Efficiency, Ability) e não só para efeito (Results).
+- **Coleta automatizada vs. survey manual:** privilegiamos automação para métricas operacionais (lead time, cobertura, RUM) e mantivemos survey para Health e Clarity, onde percepção é o sinal — não há automação que substitua escutar o time.
+- **Frequência alta vs. cadência escalonada:** consideramos pulse survey semanal para todas as métricas, mas descartamos pelo custo cognitivo. Cadências por sprint, release e trimestre preservam atenção do time para o que de fato muda em cada janela.
+- **Métricas de vaidade vs. métricas decisionais:** evitamos métricas que parecem boas em slide mas não geram ação (e.g., "número total de componentes no DS"). Toda métrica do REACH precisa ter um gatilho de decisão documentado.
 
-Queremos criar um ciclo contínuo onde feedback real retroalimenta iterações. O ciclo clássico é Plan → Build → Test → Deploy → Operate → Observe → Plan:
+### Referências da Seção 6
 
-```
-Plan (Refinamento de design no Figma, criação de tarefas)
-  ↓
-Build (Tokens compilados, componentes no Storybook)
-  ↓
-Test (Testes de a11y + regressão visual automatizados)
-  ↓
-Deploy (MR aprovada, tokens publicados e consumidos por apps)
-  ↓
-Operate (Apps rodam em produção com novos componentes/tokens)
-  ↓
-Observe (RUM monitora Core Web Vitals, issues aparecem em dashboard)
-  ↓
-[Volta para Plan: Equipe de design analisa dados e refina próximas versões]
-```
+- [1] Kaplan, K. (2019). *DesignOps 101*. Nielsen Norman Group. https://www.nngroup.com/articles/design-operations-101/
+- [2] Kaplan, K. (2020). *Measuring DesignOps Impact: A Framework (REACH)*. Nielsen Norman Group. https://www.nngroup.com/articles/measuring-design-operations/
+- [3] Cooper, A.; Reimann, R.; Cronin, D. (2014). *About Face: The Essentials of Interaction Design*. 4ª ed. Wiley.
+- [4] Rodden, K., Hutchinson, H., & Fu, X. (2010). *Measuring the User Experience on a Large Scale: User-Centered Metrics for Web Applications (HEART)*. Google Research. https://research.google/pubs/pub36299/
+- [5] Sauro, J., & Lewis, J. R. (2016). *Quantifying the User Experience: Practical Statistics for User Research*. 2ª ed. MeasuringU / Morgan Kaufmann. https://measuringu.com/
 
-Este loop cria feedback rápido: mudanças visuais são validadas não apenas por reviewers humanos, mas por dados de usuários reais.
-
-### 5.6 Fluxo Visual Proposto
-
-```mermaid
-flowchart LR
-    A["Designer<br/>Figma + Tokens Studio"] -->|push| B["Branch<br/>feat/design-XXX"]
-    B -->|MR aberta| C["Pipeline Lint<br/>Schema + A11y + CSS"]
-    C -->|OK| D["Build<br/>Style Dict + Storybook"]
-    D -->|OK| E["Testes<br/>Accessibility + Visual"]
-    E -->|OK| F["Preview Deploy<br/>URL temporária"]
-    F -->|Review| G{Code Review<br/>Dev + UX Lead}
-    G -->|Aprovado| H["Merge main"]
-    H -->|main atualizada| I["Deploy Staging<br/>para validação"]
-    I -->|OK em staging| J["Deploy Production<br/>npm publish"]
-    J -->|live| K["Observe RUM<br/>Core Web Vitals"]
-    K -->|Métrica OK| L["✅ Release completo"]
-    K -->|Métrica degradou| M["🚨 Alerta + Análise"]
-    C -->|Falha| N["❌ Bloqueia MR<br/>Deve corrigir"]
-    E -->|Falha| N
-```
-
-### Decisões de Trade-off
-
-* **Pixel-Perfect vs. Robustez de Testes:** Consideramos BackstopJS para comparação visual pixel-por-pixel, mas isso geraria falsos positivos (anti-aliasing, rendering engine differences). Nossa escolha: usar ferramentas que entendem "mudança intencional" vs "bug visual". Trade-off: ferramentas mais sofisticadas têm custo (Chromatic é SaaS).
-
-* **RUM 100% vs. Amostragem:** Coletar RUM em todas as sessões geraria overhead de rede. Proposta: amostragem estratificada — 10% em produção, 100% em staging. Problemas críticos aparecem rápido sem penalizar performance real.
-
-* **Gates Restritivos vs. Velocidade de Iteração:** Consideramos versão "leve" do pipeline (sem gates de a11y/regressão) para iterar rápido. Descartamos porque a Jacto opera em contexto crítico de campo — segurança e acessibilidade não são negoció áveis. 5 minutos extra em testes evita horas de retrabalho.
-
-* **Versionamento Centralizado vs. Descentralizado:** Poderíamos deixar cada app escolher versão de tokens independentemente. Proposta: versão única, publicada centralmente. Garante consistência, mas requer coordenação. Alternativa: multiple versions com suporte gradual a breaking changes.
+**Responsável:** Yasmin Minário
 
 ---
 
@@ -755,7 +733,7 @@ Antes de definir processos, o time mapeia os riscos que podem gerar retrabalho, 
 | **Perda de conhecimento quando alguém sai ou troca de função** | Decisões de interface ficam concentradas em uma pessoa e o time perde contexto. | Documentar componentes, decisões e critérios de uso no Storybook, GitLab Issues e Merge Requests. | Issues com histórico de decisão, Storybook atualizado e handover registrado. |
 | **Design System desatualizado** | O código passa a usar componentes diferentes do protótipo, gerando inconsistência visual. | Revisão quinzenal dos componentes e tokens utilizados; itens obsoletos entram em lista de depreciação. | Lista de componentes ativos, depreciados e removidos. |
 | **Token alterado sem validação técnica** | Mudança visual pode quebrar contraste, espaçamento ou layout no frontend. | Gate no CI para validar tokens, contraste e build do Storybook antes do merge. | Pipeline bloqueando MR com token inválido ou build quebrado. |
-| **Exceções viram padrão informal** | Telas começam a fugir do Design System sem justificativa. | Toda exceção deve ser registrada em issue com motivo, responsável e prazo de revisão. | Issue com label `design-exception` e decisão documentada. |
+| **Exceções viram padrão informal** | Telas começam a fugir do Design System sem justificativa. | Toda exceção deve ser registrada em issue com motivo, responsável e prazo de revisão. | Issue com label **design-exception** e decisão documentada. |
 | **Regressão visual após merge** | Uma alteração aprovada quebra layout em outra parte do sistema. | Testes de regressão visual no pipeline, comparando o build atual com o baseline aprovado. | Relatório de regressão visual anexado ao MR. |
 | **Overhead de processo** | O time perde tempo mantendo rituais ou documentos que não ajudam a entrega. | Revisar mensalmente o processo e remover etapas que não geram evidência útil. | Ata curta da retrospectiva operacional com ações de melhoria. |
 
@@ -796,7 +774,7 @@ Como o DesignOps depende de alinhamento entre design, desenvolvimento e CI/CD, q
 
 Checklist de onboarding:
 
-- [ ] Ler o `DESIGN_OPS.md` e entender a política de tokens e componentes.
+- [ ] Ler o **DESIGN_OPS.md** e entender a política de tokens e componentes.
 - [ ] Acessar Figma, repositório GitLab e Storybook do projeto.
 - [ ] Entender a estrutura de issues, labels e fluxo de Merge Request.
 - [ ] Rodar o projeto localmente.
@@ -823,7 +801,7 @@ A partir dessas respostas, o time registra ações pequenas e verificáveis:
 | Problema observado | Ação de melhoria | Responsável | Prazo |
 |---|---|---|---|
 | Muitos ajustes visuais no fim da sprint | Antecipar handover para antes do início do desenvolvimento. | UX Lead + Dev Lead | Próxima sprint |
-| Token sem padrão de nome | Criar convenção no `DESIGN_OPS.md`. | UX Lead | Próxima revisão |
+| Token sem padrão de nome | Criar convenção no **DESIGN_OPS.md**. | UX Lead | Próxima revisão |
 | Componente duplicado | Consolidar no Storybook e depreciar o antigo. | Dev Lead | Próxima sprint |
 | Falha visual não detectada | Adicionar teste de regressão visual no pipeline. | DevOps Engineer | Próximo merge relevante |
 
@@ -872,54 +850,10 @@ Essas perguntas ajudam o grupo a tratar o DesignOps como uma prática que se aju
 - **Escolhemos responsabilidade distribuída em vez de uma pessoa única de DesignOps**, porque o briefing do grupo divide a entrega entre sete pessoas e exige colaboração entre design, desenvolvimento e CI/CD.
 - **Escolhemos evolução por sprint em vez de auditorias longas**, porque ciclos curtos combinam melhor com a esteira de CI/CD e com o ritmo do projeto.
 
----
-
-
-
-### Referências da Seção 1
-[1] Kaplan, K. (Nielsen Norman Group). *DesignOps 101*.
-[2] Atlassian. *O que é DevOps?*. URL: https://www.atlassian.com/br/devops
-[3] Gaea. *Conheça a incrível história do DevOps*. URL: https://gaea.com.br/conheca-a-incrivel-historia-do-devops/
-
-**Responsável:** Davi Versan
-
-### Referências da Seção 3
-
-[1] Nielsen Norman Group (2020). *Design Operations 101*. [https://www.nngroup.com/articles/design-operations-101/](https://www.nngroup.com/articles/design-operations-101/)
-
-[2] Malouf, P. (2017). *What is Design Operations and Why Should You Care?* [https://medium.com/designer-hangout/what-is-design-operations-and-why-should-you-care-b72f02b47761](https://medium.com/designer-hangout/what-is-design-operations-and-why-should-you-care-b72f02b47761)
-
-[3] Figma Documentation. [https://help.figma.com/](https://help.figma.com/)
-
-[4] Storybook Docs. [https://storybook.js.org/docs](https://storybook.js.org/docs)
-
-[5] GitLab CI/CD Docs. [https://docs.gitlab.com/ee/ci/](https://docs.gitlab.com/ee/ci/)
-
-[6] Conventional Commits. *A specification for adding human and machine readable meaning to commit messages*. https://www.conventionalcommits.org/
-
-**Responsável:** Rodrigo Lee
-
-### Referências da Seção 5
-
-[1] GitLab. *GitLab CI/CD Documentation*. https://docs.gitlab.com/ee/ci/
-
-[2] Chromatic. *Visual Testing & Review Platform for Design Systems*. https://www.chromatic.com/docs
-
-[3] Deque Systems. *Axe DevTools — Accessibility Testing Engine*. https://www.deque.com/axe/devtools/
-
-[4] Google. *Web Vitals: Essential metrics for a healthy site*. https://web.dev/vitals/
-
-[5] Humble, J., & Farley, D. (2010). *Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation*. Addison-Wesley.
-
-[6] W3C Design Tokens Community Group. *Design Tokens Format Module*. https://tr.designtokens.org/format/
-
-**Responsável:** Rafael Barbosa
-
-
 ### Referências da Seção 7
 
 - [1] Kaplan, K. (2019). *DesignOps 101*. Nielsen Norman Group. https://www.nngroup.com/articles/design-operations-101/
-- [2] Nielsen Norman Group. (2021). *DesignOps Study Guide*. https://www.nngroup.com/articles/design-ops-study-guide/
+- [2] Nielsen Norman Group (2021). *DesignOps Study Guide*. https://www.nngroup.com/articles/design-ops-study-guide/
 - [3] Malouf, D. (2017). *What is Design Operations and why should you care?*. Designer Hangout. https://medium.com/designer-hangout/what-is-design-operations-and-why-should-you-care-b72f02b47761
 - [4] Atlassian. *Design System Template*. https://www.atlassian.com/software/confluence/templates/design-system
 
