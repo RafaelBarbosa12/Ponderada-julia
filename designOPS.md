@@ -776,9 +776,13 @@ Essas perguntas ajudam o grupo a tratar o DesignOps como uma prática que se aju
 ### Referências da Seção 3
 
 [1] Nielsen Norman Group (2020). *Design Operations 101*. [https://www.nngroup.com/articles/design-operations-101/](https://www.nngroup.com/articles/design-operations-101/)
+
 [2] Malouf, P. (2017). *What is Design Operations and Why Should You Care?* [https://medium.com/designer-hangout/what-is-design-operations-and-why-should-you-care-b72f02b47761](https://medium.com/designer-hangout/what-is-design-operations-and-why-should-you-care-b72f02b47761)
+
 [3] Figma Documentation. [https://help.figma.com/](https://help.figma.com/)
+
 [4] Storybook Docs. [https://storybook.js.org/docs](https://storybook.js.org/docs)
+
 [5] GitLab CI/CD Docs. [https://docs.gitlab.com/ee/ci/](https://docs.gitlab.com/ee/ci/)
 
 **Responsável:** Rodrigo Lee
