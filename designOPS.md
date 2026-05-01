@@ -32,6 +32,106 @@ Ambas as abordagens visam a quebra de silos, a colaboração multidisciplinar, a
 
 ---
 
+## 3. Como o Trabalho é Feito (Processos e Ferramentas)
+
+### Contexto e objetivo
+
+A presente seção define a stack de ferramentas como um **sistema integrado de DesignOps**, alinhado ao princípio de *Standardize* da Nielsen Norman Group, no qual ferramentas não são adotadas isoladamente, mas como uma infraestrutura contínua que conecta decisões de design à entrega automatizada via CI/CD. O objetivo é eliminar a fragmentação observada no projeto (Sprint 1) e estabelecer uma **fonte única de verdade**, garantindo rastreabilidade, consistência visual e automação ponta a ponta.
+
+
+### 3.1 Stack integrada e justificativa
+
+A stack adotada é composta por:
+
+* **Figma + Tokens Studio**
+  Resolve a criação colaborativa de interfaces e a extração estruturada de *design tokens*. O uso do Tokens Studio permite transformar decisões visuais em artefatos versionáveis (JSON), conectando design ao código.
+  *Alternativa considerada:* Adobe XD + export manual de variáveis.
+  *Motivo da rejeição:* ausência de integração nativa com pipelines automatizados e menor maturidade no ecossistema de tokens.
+
+* **GitLab**
+  Atua como repositório central e orquestrador da esteira CI/CD, consolidando código, tokens e documentação.
+  *Alternativa:* GitHub Actions.
+  *Motivo da rejeição:* menor integração nativa com pipelines corporativos e controle centralizado de CI em comparação ao GitLab no contexto do projeto.
+
+* **Storybook**
+  Funciona como repositório vivo de componentes, garantindo alinhamento entre design e implementação.
+  *Alternativa:* documentação estática (Wiki).
+  *Motivo da rejeição:* não garante validação interativa nem isolamento de componentes.
+
+* **Chromatic (ou Percy)**
+  Responsável por testes de regressão visual automatizados.
+  *Alternativa:* testes manuais.
+  *Motivo da rejeição:* inviável em escala e sujeito a erro humano.
+
+* **Linters de CSS (Stylelint)**
+  Garantem padronização e conformidade automática com tokens e guidelines.
+  *Alternativa:* revisão manual.
+  *Motivo da rejeição:* baixa confiabilidade e alto custo operacional.
+
+Essa composição responde diretamente à crítica de **Malouf (2017)** sobre o “caos ferramental” em design, mitigando silos ao integrar design, código e validação em um fluxo único.
+
+
+### 3.2 Arquitetura do fluxo (Design-to-CI/CD)
+
+<div align="center">
+  <sub>Figura 1 - Diagrama Fluxo Como o Trabalho é Feito - Realizado no draw.io</sub> <br><br>
+
+  <img src="img/com-feito-processos-ferramentas.png" width="800">
+
+  <br><br>
+  <sup>Fonte: Material produzido pelos autores (2026).</sup>
+</div>
+
+
+```mermaid
+flowchart LR
+    A[Figma] --> B[Tokens Studio]
+    B --> C[Export Tokens JSON]
+    C --> D[GitLab Repository]
+    D --> E[CI Pipeline]
+    E --> F[Build Storybook]
+    E --> G[Visual Tests - Chromatic/Percy]
+    F --> H[Deploy Design System]
+    G --> H
+```
+
+O fluxo evidencia a transformação de artefatos de design em código executável e validado automaticamente, alinhando-se ao conceito de DesignOps como “DevOps do Design”.
+
+
+### 3.3 Convenções de padronização
+
+Para garantir consistência e rastreabilidade:
+
+* **Componentes:** `ds-button-primary`, `ds-card-user`
+* **Branches:** `design/feature-nome`, `tokens/update-colors`
+* **Commits (Conventional Commits):**
+
+  * `feat(ui): adiciona componente botão`
+  * `fix(tokens): corrige escala de cores`
+  * `chore(storybook): atualiza documentação`
+
+Essas convenções suportam automação e leitura por pipelines, alinhando-se às práticas de SCM e CI/CD.
+
+
+### 3.4 Auditoria e controle de "shadow tooling"
+
+Para evitar o surgimento de ferramentas paralelas não governadas:
+
+* Toda ferramenta deve estar registrada no repositório (README ou Wiki)
+* Integração obrigatória com GitLab (direta ou via API)
+* Revisão trimestral de uso (ferramentas sem uso são descontinuadas)
+* Bloqueio de artefatos externos não versionados no pipeline
+
+Esse controle garante aderência à ISO/IEC 25010 no aspecto de **manutenibilidade e rastreabilidade**, evitando perda de consistência operacional.
+
+
+### 3.5 Decisões de trade-off
+
+* **Centralização vs Flexibilidade:** optou-se por centralização no GitLab, sacrificando flexibilidade individual em favor de consistência sistêmica.
+* **Automação vs Simplicidade:** adoção de regressão visual automatizada aumenta complexidade inicial, mas reduz drasticamente erros em produção.
+* **Ferramentas especializadas vs generalistas:** priorizou-se ferramentas especializadas (Tokens Studio, Chromatic) para garantir qualidade técnica.
+---
+
 ## 5. Integração com Esteira CI/CD
 
 ### Contexto e objetivo
@@ -672,6 +772,16 @@ Essas perguntas ajudam o grupo a tratar o DesignOps como uma prática que se aju
 [3] Gaea. *Conheça a incrível história do DevOps*. URL: https://gaea.com.br/conheca-a-incrivel-historia-do-devops/
 
 **Responsável:** Davi Versan
+
+### Referências da Seção 3
+
+[1] Nielsen Norman Group (2020). *Design Operations 101*. [https://www.nngroup.com/articles/design-operations-101/](https://www.nngroup.com/articles/design-operations-101/)
+[2] Malouf, P. (2017). *What is Design Operations and Why Should You Care?* [https://medium.com/designer-hangout/what-is-design-operations-and-why-should-you-care-b72f02b47761](https://medium.com/designer-hangout/what-is-design-operations-and-why-should-you-care-b72f02b47761)
+[3] Figma Documentation. [https://help.figma.com/](https://help.figma.com/)
+[4] Storybook Docs. [https://storybook.js.org/docs](https://storybook.js.org/docs)
+[5] GitLab CI/CD Docs. [https://docs.gitlab.com/ee/ci/](https://docs.gitlab.com/ee/ci/)
+
+**Responsável:** Rodrigo Lee
 
 ### Referências da Seção 5
 
